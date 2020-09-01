@@ -56,8 +56,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Deinit();
 
 	ExitProcess(0);
-
-	return 0;
 }
 
 LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -106,7 +104,7 @@ void Init()
 	SelectObject(hdcBack, hbmBack);
 	ReleaseDC((HWND)0, hdc);
 
-	ShowCursor(0);
+	ShowCursor(false);
 
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
