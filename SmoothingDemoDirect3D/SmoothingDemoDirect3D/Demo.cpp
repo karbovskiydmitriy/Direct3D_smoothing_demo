@@ -126,25 +126,25 @@ void Init()
 		}
 	}
 
-	AssignVertexBuffer(vertices, veticesCount);
+	AssignVertexBuffer(&d3dVertexBuffer, vertices, veticesCount);
 	
 	d3dDevice->SetFVF(CUSTOMFVF_VERTEX);
 	d3dDevice->SetRenderState(D3DRS_LIGHTING, false);
 }
 
-void AssignVertexBuffer(Vertex *vertices, int veticesCount)
+void AssignVertexBuffer(IDirect3DVertexBuffer9 **d3dVertexBuffer, Vertex *vertices, int veticesCount)
 {
-	if (d3dVertexBuffer)
+	if (*d3dVertexBuffer)
 	{
-		d3dVertexBuffer->Release();
+		(*d3dVertexBuffer)->Release();
 	}
 	
-	d3dDevice->CreateVertexBuffer(veticesCount * sizeof(Vertex), 0, CUSTOMFVF_VERTEX, D3DPOOL_MANAGED, &d3dVertexBuffer, 0);
+	d3dDevice->CreateVertexBuffer(veticesCount * sizeof(Vertex), 0, CUSTOMFVF_VERTEX, D3DPOOL_MANAGED, d3dVertexBuffer, 0);
 
 	Pointer p;
-	d3dVertexBuffer->Lock(0, 0, &p, 0);
+	(*d3dVertexBuffer)->Lock(0, 0, &p, 0);
 	memcpy(p, vertices, sizeof(Vertex) * veticesCount);
-	d3dVertexBuffer->Unlock();
+	(*d3dVertexBuffer)->Unlock();
 }
 
 void Draw()
@@ -252,7 +252,7 @@ void Subdivide()
 	trianglesCount = newVerticesCount / 3;
 	vertices = newVertices;
 
-	AssignVertexBuffer(vertices, newVerticesCount);
+	AssignVertexBuffer(&d3dVertexBuffer, vertices, newVerticesCount);
 }
 
 void GetSmoothPoint(Vertex *v1, Vertex *v2, Vertex *center, Vertex *result)

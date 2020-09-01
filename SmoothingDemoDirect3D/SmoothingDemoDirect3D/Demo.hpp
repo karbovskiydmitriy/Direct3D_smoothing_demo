@@ -21,7 +21,7 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void Init();
-void AssignVertexBuffer(Vertex *vertices, int veticesCount);
+void AssignVertexBuffer(IDirect3DVertexBuffer9 **d3dVertexBuffer, Vertex *vertices, int veticesCount);
 void Draw();
 void Deinit();
 void Subdivide();
